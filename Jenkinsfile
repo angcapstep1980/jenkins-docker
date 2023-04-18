@@ -9,26 +9,24 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-        sh 'docker untag angelocapone/modelonweb'
-		sh 'docker rmi modelonweb --force'
-		sh 'docker build -t modelonweb .'
+        bat 'docker rmi angelocapone/modelonweb --force'
+		bat 'docker build -t angelocapone/modelonweb .'
       }
     }
     stage('Login') {
       steps {
-        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+        bat 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
       }
     }
     stage('Push') {
       steps {
-		sh 'docker tag modelonweb angelocapone/modelonweb'
-		sh 'docker push angelocapone/modelonweb'
+		bat 'docker push angelocapone/modelonweb'
       }
     }
   }
   post {
     always {
-      sh 'docker logout'
+      bat 'docker logout'
     }
   }
 }
