@@ -1,1 +1,1 @@
-jenkins per pipeline da github a docker
+python e jenkins per pipeline da github a docker
